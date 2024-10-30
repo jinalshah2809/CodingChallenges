@@ -1,0 +1,46 @@
+
+
+const prompt = require('prompt-sync')(); // Use prompt-sync for input in Node.js
+
+// Function to start the timer
+function startTimer(totalSeconds) {
+  let remainingTime = totalSeconds;
+
+  const intervalId = setInterval(() => {
+    if (remainingTime > 0) {
+      console.log(`Remaining Time: ${remainingTime} seconds.`);
+      remainingTime--;
+    } else {
+      console.log("Time is over.");
+      clearInterval(intervalId); // Stop the timer when time is over
+    }
+  }, 1000); // Run every 1 second
+}
+
+// Get user input for the timer
+function getUserInput() {
+  console.log("Please choose a unit for timer:");
+  console.log("1) Seconds");
+  console.log("2) Minutes");
+
+  const choice = parseInt(prompt("Enter the choice number: "));
+  let time;
+
+  if (choice === 1) {
+    time = parseInt(prompt("Enter the time in seconds (do not use decimals): "));
+  } else if (choice === 2) {
+    time = parseInt(prompt("Enter the time in minutes (do not use decimals): ")) * 60;
+  } else {
+    console.log("Invalid choice. Please restart the program.");
+    return;
+  }
+
+  if (isNaN(time) || time <= 0) {
+    console.log("Please enter a valid positive number.");
+  } else {
+    startTimer(time);
+  }
+}
+
+// Run the program
+getUserInput();
